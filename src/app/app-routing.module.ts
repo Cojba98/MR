@@ -11,6 +11,22 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'novi-oglas',
+    loadChildren: () => import('./novi-oglas/novi-oglas.module').then( m => m.NoviOglasPageModule)
+  },
+  {
+    path: 'stanovi',
+    loadChildren: () => import('./stanovi/stanovi.module').then( m => m.StanoviPageModule)
+  },
+  {
+    path: 'prikaz-stana/:id',
+    loadChildren: () => import('./prikaz-stana/prikaz-stana.module').then( m => m.PrikazStanaPageModule)
+  },
+  {
+    path: 'pretraga-stanova',
+    loadChildren: () => import('./pretraga-stanova/pretraga-stanova.module').then( m => m.PretragaStanovaPageModule)
+  },
 ];
 
 @NgModule({
