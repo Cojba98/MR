@@ -1,0 +1,11 @@
+
+#grid-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+app-stan-grid-item{
+  width: 33.33%;
+}
+

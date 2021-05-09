@@ -1,0 +1,177 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>pretraga-stanova</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides>
+    <ion-slide>
+<ion-grid>
+  <ion-row>
+    <ion-col size="12">
+    <ion-item>
+      <ion-label>Izaberite grad:</ion-label>
+      <ion-select>
+        <ion-select-option>Beograd</ion-select-option>
+        <ion-select-option>Novi Sad</ion-select-option>
+        <ion-select-option>Nis</ion-select-option>
+        <ion-select-option>Kragujevac</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-item>
+        <ion-range min="0" max="10000" step="100" dual-knobs="true" pin="true" ticks="false" [(ngModel)]="vrednosti">
+          <ion-icon size="small" slot="start" src="https://www.flaticon.com/svg/vstatic/svg/32/32719.svg?token=exp=1619909866~hmac=4da6f617e77a60bd1d565b407169ca62"></ion-icon>
+          <ion-icon slot="end" src="https://www.flaticon.com/svg/vstatic/svg/32/32719.svg?token=exp=1619909866~hmac=4da6f617e77a60bd1d565b407169ca62"></ion-icon>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label>MIN cena:</ion-label>
+      <ion-input value="{{vrednosti.lower}}"></ion-input>
+        <ion-label>MAX cena:</ion-label>
+      <ion-input value="{{vrednosti.upper}}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-range min="10" max="500" step="100" dual-knobs="true" pin="true" ticks="false" [(ngModel)]="kvadratura">
+          <ion-icon size="small" slot="start" src="https://www.flaticon.com/svg/vstatic/svg/1295/1295109.svg?token=exp=1619910045~hmac=83d0a1521e42fcd3677c70bd53f5e7db"></ion-icon>
+          <ion-icon slot="end" src="https://www.flaticon.com/svg/vstatic/svg/1295/1295109.svg?token=exp=1619910045~hmac=83d0a1521e42fcd3677c70bd53f5e7db"></ion-icon>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label>MIN m2:</ion-label>
+        <ion-input value="{{kvadratura.lower}}"></ion-input>
+        <ion-label>MAX m2:</ion-label>
+        <ion-input value="{{kvadratura.upper}}"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row style="justify-content: center">
+    <ion-item lines="none">
+    <ion-button style="">Pretrazi</ion-button>
+    <ion-button>Napredna pretraga</ion-button>
+    </ion-item>
+  </ion-row>
+</ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>Izaberite grad:</ion-label>
+              <ion-select>
+                <ion-select-option>Beograd</ion-select-option>
+                <ion-select-option>Novi Sad</ion-select-option>
+                <ion-select-option>Nis</ion-select-option>
+                <ion-select-option>Kragujevac</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-range min="0" max="10000" step="100" dual-knobs="true" pin="true" ticks="false" [(ngModel)]="vrednosti">
+                <ion-icon size="small" slot="start" src="https://www.flaticon.com/svg/vstatic/svg/32/32719.svg?token=exp=1619909866~hmac=4da6f617e77a60bd1d565b407169ca62"></ion-icon>
+                <ion-icon slot="end" src="https://www.flaticon.com/svg/vstatic/svg/32/32719.svg?token=exp=1619909866~hmac=4da6f617e77a60bd1d565b407169ca62"></ion-icon>
+              </ion-range>
+            </ion-item>
+            <ion-item>
+              <ion-label>MIN cena:</ion-label>
+              <ion-input value="{{vrednosti.lower}}"></ion-input>
+              <ion-label>MAX cena:</ion-label>
+              <ion-input value="{{vrednosti.upper}}"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-range min="10" max="500" step="100" dual-knobs="true" pin="true" ticks="false" [(ngModel)]="kvadratura">
+                <ion-icon size="small" slot="start" src="https://www.flaticon.com/svg/vstatic/svg/1295/1295109.svg?token=exp=1619910045~hmac=83d0a1521e42fcd3677c70bd53f5e7db"></ion-icon>
+                <ion-icon slot="end" src="https://www.flaticon.com/svg/vstatic/svg/1295/1295109.svg?token=exp=1619910045~hmac=83d0a1521e42fcd3677c70bd53f5e7db"></ion-icon>
+              </ion-range>
+            </ion-item>
+            <ion-item>
+              <ion-label>MIN m2:</ion-label>
+              <ion-input value="{{kvadratura.lower}}"></ion-input>
+              <ion-label>MAX m2:</ion-label>
+              <ion-input value="{{kvadratura.upper}}"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+<ion-row style="justify-content:end">
+  <ion-title color="primary" style="text-align: start; padding: 10px">Spratnost:</ion-title>
+</ion-row>
+        <ion-row style="justify-content: space-around">
+            <ion-label>Sprat od:</ion-label>
+            <ion-select>
+              <ion-select-option>Prvi</ion-select-option>
+              <ion-select-option>Prvi</ion-select-option>
+              <ion-select-option>Prvi</ion-select-option>
+            </ion-select>
+            <ion-label>Sprat do:</ion-label>
+            <ion-select>
+              <ion-select-option>Prvi</ion-select-option>
+              <ion-select-option>Prvi</ion-select-option>
+              <ion-select-option>Prvi</ion-select-option>
+            </ion-select>
+        </ion-row>
+        <ion-row style="justify-content:end">
+          <ion-title color="primary" style="text-align: start; padding: 10px">Grejanje:</ion-title>
+        </ion-row>
+        <ion-row style="justify-content:end">
+          <ion-list>
+          <ion-item>
+            <ion-label>TA pec:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Centralno:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Etazno:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Struja:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Gas:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          </ion-list>
+        </ion-row>
+        <ion-row style="justify-content:end">
+          <ion-title color="primary" style="text-align: start; padding: 10px">Ostale opcije:</ion-title>
+        </ion-row>
+        <ion-row style="justify-content:end">
+          <ion-list>
+          <ion-item>
+            <ion-label>Parking mesto:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Uknjizeno:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Ima terasu:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Struja:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Gas:</ion-label>
+            <ion-checkbox></ion-checkbox>
+          </ion-item>
+          </ion-list>
+        </ion-row>
+        <ion-row style="justify-content: center">
+          <ion-item lines="none">
+            <ion-button style="">Pretrazi</ion-button>
+            <ion-button>Osnovna pretraga</ion-button>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    </ion-slides>
+</ion-content>

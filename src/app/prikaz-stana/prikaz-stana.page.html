@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>prikaz-stana</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-slides>
+  <ion-slide *ngFor="let slika of stan.fotografije">
+    <ion-img src="{{slika}}"></ion-img>
+  </ion-slide>
+</ion-slides>
+
+  <ion-grid>
+    <ion-row>
+  <ion-label id="naslov">Osnovne informacije</ion-label>
+  <ion-list>
+    <ion-item>
+      <ion-icon name="map-outline"></ion-icon>
+
+      <ion-label>Grad: {{stan.grad}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="location-outline"></ion-icon>
+      <ion-label>Adresa: {{stan.adresa}} {{stan.broj}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/1295/1295109.svg?token=exp=1619726578~hmac=cf3ce43131ab8be48c297fda4320071e"></ion-icon>
+      <ion-label>Povrsina: {{stan.povrsina}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/591/591978.svg?token=exp=1619726733~hmac=7422715f520fa4b875b04348eda7a57c"></ion-icon>
+      <ion-label>Cena: {{stan.cena}}</ion-label>
+    </ion-item>
+  </ion-list>
+      <ion-label id="naslov">Infrastruktura</ion-label>
+      <ion-list>
+    <ion-item>
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label>Godina izgradnje: {{stan.godinaIzgradnje}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/3731/3731841.svg?token=exp=1619727119~hmac=bb94ab1418c161defbbe8e57f50e1d7b"></ion-icon>
+      <ion-label>Broj soba: {{stan.brojSoba}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/515/515056.svg?token=exp=1619727182~hmac=43502fa08cc5dd7c254969a348c103b6"></ion-icon>
+      <ion-label>Broj terasa: {{stan.brojTerasa}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/906/906805.svg?token=exp=1619727213~hmac=ad50abdaf778ba344f35c99d040ec9ad"></ion-icon>
+      <ion-label>Sprat: {{stan.sprat}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/2057/2057432.svg?token=exp=1619727478~hmac=082aa4033e8dc30bc32dfef0a9d687d6"></ion-icon>
+      <ion-label>Parking: {{stan.parking}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/1085/1085688.svg?token=exp=1619727271~hmac=c891db2ca0974ca5198bf8060edb389c"></ion-icon>
+      <ion-label>Grejanje: {{stan.grejanje}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/1819/1819880.svg?token=exp=1619727458~hmac=e79feab5ec40ecf2f2d8252eb5d2192f"></ion-icon>
+      <ion-label>Status: {{stan.status}}</ion-label>
+    </ion-item>
+      </ion-list>
+      <ion-label id="naslov">Opis nekretnine</ion-label>
+    <ion-item lines="none">
+      <ion-icon src="https://www.flaticon.com/svg/vstatic/svg/167/167801.svg?token=exp=1619727350~hmac=b240de3972713a8153671e4ff350e2b4"></ion-icon>
+      <ion-label>Opis: {{stan.opis}}</ion-label>
+    </ion-item>
+      <ion-label id="naslov">Kontakt informacije</ion-label>
+      <form #Zakazivanje="ngForm" (ngSubmit)="zakaziPosetu()">
+      <ion-list>
+        <ion-item>
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-label>Broj telefona: 0621130219</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-label>Email: novak.cojbasic@gmail.com</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="calendar-outline"></ion-icon>
+        <ion-datetime min="{{datum}}" ngModel name="datum" display-format="DD-MMMM-YYYY" placeholder="Izaberite datum" required></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="time-outline"></ion-icon>
+          <ion-datetime display-format="HH:MM" ngModel name="vreme" placeholder="Izaberite vreme" required></ion-datetime>
+        </ion-item>
+  </ion-list>
+      <ion-button type="submit" color="success"[disabled]="!Zakazivanje.valid">Zakazite pregled stana</ion-button>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>
