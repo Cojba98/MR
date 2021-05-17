@@ -6,6 +6,22 @@
 }
 
 app-stan-grid-item{
-  width: 33.33%;
+
+
+}
+
+ion-col{
+  border-style: inset;
+  border-width: 3px;
+  border-color: #3a7be0;
+  border-radius: 10px;
+}
+
+#error{
+  text-align: center;
+  vertical-align: center;
+  font-size: 25px;
+  color: #4d4d4d;
+  margin-top: 15px;
 }
 

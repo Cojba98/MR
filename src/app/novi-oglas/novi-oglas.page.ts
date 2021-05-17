@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Form, NgForm} from "@angular/forms";
+import {Spratnost} from "../spratnost.enum";
 
 @Component({
   selector: 'app-novi-oglas',
@@ -7,14 +8,17 @@ import {Form, NgForm} from "@angular/forms";
   styleUrls: ['./novi-oglas.page.scss'],
 })
 export class NoviOglasPage implements OnInit {
+
+  fotografije = [];
   godine;
-  spratovi;
+  spratovi = [];
   korak = 1;
   prvaBoja;
   drugaBoja;
   trecaBoja;
   cetvrtaBoja;
   petaBoja;
+  linkFotografije = '';
 
   constructor() {
     this.prvaBoja = 'dark';
@@ -23,18 +27,21 @@ export class NoviOglasPage implements OnInit {
     this.cetvrtaBoja = 'medium';
     this.petaBoja = 'medium';
     this.godine = [];
-    for(let i = 2021; i>=1900; i--){
+    for(let i = (new Date()).getFullYear(); i>=1900; i--){
       this.godine.push(i);
     }
-    this.spratovi = [];
-
-    for(let i = 1; i<=30; i++) {
-      this.spratovi.push(i + '. sprat');
-    }
-  }
+     }
 
   ngOnInit() {
+
+    for(const sprat in Spratnost) {
+      if(isNaN(Number(sprat))) {
+        this.spratovi.push(sprat);
+      }
+    }
+    console.log(this.spratovi);
   }
+
 
   postaviKorak(korak: number){
     this.korak = korak;
@@ -79,5 +86,13 @@ export class NoviOglasPage implements OnInit {
 
   postaviOglas(form: NgForm) {
 console.log(form);
+  }
+
+  dodajFotografiju() {
+    if( this.linkFotografije && this.linkFotografije!=''){
+      console.log('Dodata fotografija');
+      this.fotografije.push(this.linkFotografije);
+    }
+    this.linkFotografije = '';
   }
 }

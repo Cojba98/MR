@@ -1,0 +1,30 @@
+export enum Spratnost {
+  'Podrum',
+  'Suteren',
+  'Nisko prizemlje',
+  'Prizemlje',
+  'Visoko prizemlje',
+  '1. sprat',
+  '2. sprat',
+  '3. sprat',
+  '4. sprat',
+  '5. sprat',
+  '6. sprat',
+  '7. sprat',
+  '8. sprat',
+  '9. sprat',
+  '10. sprat',
+  '11. sprat',
+  '12. sprat',
+  '13. sprat',
+  '14. sprat',
+  '15. sprat',
+  '16. sprat',
+  '17. sprat',
+  '18. sprat',
+  '19. sprat',
+  '20. sprat',
+  'Potkrovlje'
+
+
+}

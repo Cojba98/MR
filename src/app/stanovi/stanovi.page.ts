@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {StanModule} from "../stan/stan.module";
 import {StanoviService} from "../stanovi.service";
 import {IonToggle} from "@ionic/angular";
+import {Stan} from "../stan";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-stanovi',
@@ -10,14 +11,21 @@ import {IonToggle} from "@ionic/angular";
 })
 export class StanoviPage implements OnInit {
 
-  stanovi: StanModule[];
+  stanovi: Stan[];
   grid: boolean;
 
-  constructor(private stanoviServis: StanoviService) {
-    this.stanovi = stanoviServis.stanovi;
+  constructor(private stanoviServis: StanoviService, private route: ActivatedRoute) {
+
   }
 
   ngOnInit() {
+    if(this.route.snapshot.queryParams.filter) {
+    this.stanovi = this.stanoviServis.uzmiFiltrirane();
+    }else {
+      this.stanovi = this.stanoviServis.uzmiSve();
+    }
+    console.log("Prikazz: " + this.stanovi.length);
+
   }
 
 }

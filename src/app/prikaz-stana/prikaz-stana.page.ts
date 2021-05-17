@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StanModule} from "../stan/stan.module";
 import {ActivatedRoute} from "@angular/router";
 import {StanoviService} from "../stanovi.service";
+import {Stan} from "../stan";
 
 @Component({
   selector: 'app-prikaz-stana',
@@ -10,7 +10,7 @@ import {StanoviService} from "../stanovi.service";
 })
 export class PrikazStanaPage implements OnInit {
 
-  stan: StanModule;
+  stan: Stan;
   datum;
 
   constructor(private route: ActivatedRoute, private serviceStanovi: StanoviService) {

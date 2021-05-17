@@ -27,6 +27,14 @@ const routes: Routes = [
     path: 'pretraga-stanova',
     loadChildren: () => import('./pretraga-stanova/pretraga-stanova.module').then( m => m.PretragaStanovaPageModule)
   },
+  {
+    path: 'termini',
+    loadChildren: () => import('./termini/termini.module').then( m => m.TerminiPageModule)
+  },
+  {
+    path: 'termini-poseta',
+    loadChildren: () => import('./termini-poseta/termini-poseta.module').then( m => m.TerminiPosetaPageModule)
+  },
 ];
 
 @NgModule({

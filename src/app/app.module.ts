@@ -7,9 +7,11 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from '@angular/forms';
+import {MeniStandardComponent} from "./meni-standard/meni-standard.component";
+import {MeniPrijavljenComponent} from "./meni-prijavljen/meni-prijavljen.component";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MeniStandardComponent, MeniPrijavljenComponent],
   entryComponents: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

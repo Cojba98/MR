@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StanModule} from "../stan/stan.module";
+import {Stan} from "../stan";
 
 @Component({
   selector: 'app-stan-grid-item',
@@ -8,7 +8,7 @@ import {StanModule} from "../stan/stan.module";
 })
 export class StanGridItemComponent implements OnInit {
 
-  @Input() stan: StanModule;
+  @Input() stan: Stan;
 
   constructor() { }
 

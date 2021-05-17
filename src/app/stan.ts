@@ -1,16 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Spratnost} from "./spratnost.enum";
+import {Grejanje} from "./grejanje.enum";
 
-
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-export class StanModule {
+export interface Stan {
   id: number;
+  izdavanje: boolean;
   brojSoba: string;
   povrsina: number;
   cena: number;
@@ -19,8 +12,8 @@ export class StanModule {
   broj: string;
   status: string;
   godinaIzgradnje: number;
-  sprat: string;
-  grejanje: string;
+  sprat: Spratnost
+  grejanje: Grejanje;
   brojTerasa;
   parking: boolean;
   opis: string;

@@ -4,19 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NoviOglasPageRoutingModule } from './novi-oglas-routing.module';
+import { TerminiPosetaPageRoutingModule } from './termini-poseta-routing.module';
 
-import { NoviOglasPage } from './novi-oglas.page';
-
-
+import { TerminiPosetaPage } from './termini-poseta.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NoviOglasPageRoutingModule
+    TerminiPosetaPageRoutingModule
   ],
-  declarations: [NoviOglasPage]
+  declarations: [TerminiPosetaPage]
 })
-export class NoviOglasPageModule {}
+export class TerminiPosetaPageModule {}
