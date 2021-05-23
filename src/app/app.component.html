@@ -1,0 +1,10 @@
+<ion-app>
+
+  <app-meni-standard *ngIf="prijavljen===false"></app-meni-standard>
+  <ion-router-outlet *ngIf="prijavljen===false" id="main"></ion-router-outlet>
+
+  <app-meni-prijavljen *ngIf="prijavljen"></app-meni-prijavljen>
+  <ion-router-outlet *ngIf="prijavljen" id="prijavljen"></ion-router-outlet>
+
+  <app-prodaja-stan></app-prodaja-stan>
+</ion-app>

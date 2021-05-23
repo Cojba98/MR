@@ -1,0 +1,157 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>pretraga-stanova</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides>
+    <ion-slide>
+      <form #OsnovnaPretraga="ngForm" (ngSubmit)="pretraziStanove(OsnovnaPretraga)">
+<ion-grid>
+  <ion-row>
+    <ion-col size="12">
+    <ion-item>
+      <ion-label>Izaberite grad:</ion-label>
+      <ion-select ngModel name="grad" #grad="ngModel" required>
+        <ion-select-option>Beograd</ion-select-option>
+        <ion-select-option>Novi Sad</ion-select-option>
+        <ion-select-option>Nis</ion-select-option>
+        <ion-select-option>Kragujevac</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-item>
+        <ion-range min="{{minCena}}" max="{{maxCena}}" step="50" dual-knobs="true" pin="true" name="vrednosti" ticks="false" [(ngModel)]="vrednosti">
+          <ion-icon size="small" slot="start" src="../assets/icon/euro.svg"></ion-icon>
+          <ion-icon slot="end" src="../assets/icon/euro.svg"></ion-icon>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label>MIN cena:</ion-label>
+      <ion-input value="{{vrednosti.lower}}"></ion-input>
+        <ion-label>MAX cena:</ion-label>
+      <ion-input value="{{vrednosti.upper}}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-range min="{{minPovrsina}}" max="{{maxPovrsina}}" step="1" dual-knobs="true" pin="true" name="kvadratura" ticks="false" [(ngModel)]="kvadratura">
+          <ion-icon size="small" slot="start" src="../assets/icon/area.svg"></ion-icon>
+          <ion-icon slot="end" src="../assets/icon/area.svg"></ion-icon>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label>MIN m2:</ion-label>
+        <ion-input value="{{kvadratura.lower}}"></ion-input>
+        <ion-label>MAX m2:</ion-label>
+        <ion-input value="{{kvadratura.upper}}"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row style="justify-content: center">
+    <ion-item lines="none">
+    <ion-button type="submit" [disabled]="!OsnovnaPretraga.valid">Pretrazi</ion-button>
+    </ion-item>
+  </ion-row>
+</ion-grid>
+      </form>
+    </ion-slide>
+    <ion-slide>
+      <form #NaprednaPretraga="ngForm" (ngSubmit)="pretraziStanove(NaprednaPretraga)">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label >Izaberite grad:</ion-label>
+              <ion-select ngModel name="grad" #grad="ngModel" required>
+                <ion-select-option>Beograd</ion-select-option>
+                <ion-select-option>Novi Sad</ion-select-option>
+                <ion-select-option>Nis</ion-select-option>
+                <ion-select-option>Kragujevac</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-range min="{{minCena}}" max="{{maxCena}}" step="50" dual-knobs="true" name="vrednosti" pin="true" ticks="false" [(ngModel)]="vrednosti">
+                <ion-icon size="small" slot="start" src="../assets/icon/euro.svg"></ion-icon>
+                <ion-icon slot="end" src="../assets/icon/euro.svg"></ion-icon>
+              </ion-range>
+            </ion-item>
+            <ion-item>
+              <ion-label>MIN cena:</ion-label>
+              <ion-input value="{{vrednosti.lower}}"></ion-input>
+              <ion-label>MAX cena:</ion-label>
+              <ion-input value="{{vrednosti.upper}}"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-range min="{{minPovrsina}}" max="{{maxPovrsina}}" step="1" dual-knobs="true" name="kvadratura" pin="true" ticks="false" [(ngModel)]="kvadratura">
+                <ion-icon size="small" slot="start" src="../assets/icon/area.svg"></ion-icon>
+                <ion-icon slot="end" src="../assets/icon/area.svg"></ion-icon>
+              </ion-range>
+            </ion-item>
+            <ion-item>
+              <ion-label>MIN m2:</ion-label>
+              <ion-input value="{{kvadratura.lower}}"></ion-input>
+              <ion-label>MAX m2:</ion-label>
+              <ion-input value="{{kvadratura.upper}}"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+<ion-row style="justify-content:end">
+  <ion-title color="primary" style="text-align: start; padding: 10px">Spratnost:</ion-title>
+</ion-row>
+        <ion-row style="justify-content: space-around">
+            <ion-label>Sprat od:</ion-label>
+            <ion-select ngModel name="spratOD" #spratOD="ngModel">
+              <ion-select-option *ngFor="let sprat of spratovi" value="{{sprat}}">{{sprat}}</ion-select-option>
+            </ion-select>
+            <ion-label>Sprat do:</ion-label>
+            <ion-select ngModel name="spratDO" #spratDO="ngModel">
+              <ion-select-option *ngFor="let sprat of spratovi" value="{{sprat}}">{{sprat}}</ion-select-option>
+
+            </ion-select>
+        </ion-row>
+        <ion-row style="justify-content:end">
+          <ion-col size="6">
+            <ion-title color="primary" style="text-align: start; padding: 10px">Grejanje:</ion-title>
+          <ion-list>
+          <ion-item *ngFor="let grej of grejanje">
+            <ion-label>{{grej}}</ion-label>
+            <ion-checkbox ngModel name="{{grej}}" #grej="ngModel" (click)="dodajGrejanje(grej)"></ion-checkbox>
+          </ion-item>
+          </ion-list>
+          </ion-col>
+          <ion-col size="6">
+            <ion-title color="primary" style="text-align: start; padding: 10px">Ostale opcije:</ion-title>
+            <ion-list>
+              <ion-item>
+                <ion-label >Parking mesto:</ion-label>
+                <ion-checkbox [(ngModel)]="parking" name="parking"></ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-label >Uknjizeno:</ion-label>
+                <ion-checkbox [(ngModel)]="uknjizeno" name="uknjizeno"></ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-label >Ima terasu:</ion-label>
+                <ion-checkbox [(ngModel)]="terasa" name="terasa"></ion-checkbox>
+              </ion-item>
+
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        <ion-row style="justify-content: center">
+          <ion-item lines="none">
+
+            <ion-button type="submit" [disabled]="!NaprednaPretraga.valid">Pretrazi</ion-button>
+
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+      </form>
+
+    </ion-slide>
+    </ion-slides>
+</ion-content>

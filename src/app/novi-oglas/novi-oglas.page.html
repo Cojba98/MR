@@ -1,0 +1,275 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>POSTAVLJANJE OGLASA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #NoviOglasForm="ngForm" (ngSubmit)="postaviOglas(NoviOglasForm)">
+<ion-grid class="ion-no-padding ion-no-margin">
+  <ion-item-group>
+    <ion-row class="ion-nowrap ion-margin-top ">
+      <ion-col size="2" offset="1" class="ion-justify-content-center">
+    <ion-list>
+
+      <ion-label color="{{prvaBoja}}">Osnovno</ion-label>
+      <ion-icon name="information-circle" color="{{prvaBoja}}"></ion-icon>
+    </ion-list>
+        </ion-col>
+      <ion-col size="2">
+      <ion-list>
+    <ion-label color="{{drugaBoja}}">Adresa</ion-label>
+    <ion-icon name="map" color="{{drugaBoja}}"></ion-icon>
+      </ion-list>
+      </ion-col>
+      <ion-col size="2">
+      <ion-list>
+      <ion-label color="{{trecaBoja}}">Infrastruktura</ion-label>
+      <ion-icon name="business" color="{{trecaBoja}}"></ion-icon>
+      </ion-list>
+      </ion-col>
+      <ion-col size="2">
+      <ion-list>
+      <ion-label color="{{cetvrtaBoja}}">Opis</ion-label>
+      <ion-icon name="ellipsis-horizontal" color="{{cetvrtaBoja}}"></ion-icon>
+      </ion-list>
+      </ion-col>
+      <ion-col size="2">
+        <ion-list>
+      <ion-label color="{{petaBoja}}">Fotografije</ion-label>
+      <ion-icon name="image" color="{{petaBoja}}"></ion-icon>
+          </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-item-group>
+
+  <ion-item-group [hidden]="(korak!==1)">
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Broj soba:</ion-label>
+        <ion-select ngModel name="brojSoba" #brojSoba="ngModel" required>
+          <ion-select-option>Jednosoban</ion-select-option>
+          <ion-select-option>Jednoiposoban</ion-select-option>
+          <ion-select-option>Dvosoban</ion-select-option>
+          <ion-select-option>Trosoban</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="brojSoba.invalid && brojSoba.touched">
+        <ion-label color="danger">Izaberite broj soba!</ion-label>
+      </ion-item>
+    </ion-col>
+
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Povrsina u m2</ion-label>
+        <ion-input type="text" ngModel name="povrsina" required #povrsina="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="povrsina.invalid && povrsina.touched">
+        <ion-label color="danger">Unesite povrsinu stana!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Cena u E</ion-label>
+        <ion-input type="text" ngModel name="cena" required #cena="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="cena.invalid && cena.touched">
+        <ion-label color="danger">Unesite cenu!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="6" >
+      <ion-button id="dugme" expand="full" (click)="postaviKorak(2)">Dalje</ion-button>
+    </ion-col>
+  </ion-row>
+  </ion-item-group>
+  <ion-item-group [hidden]="(korak!==2)">
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Grad:</ion-label>
+        <ion-select ngModel name="grad" required #grad="ngModel">
+          <ion-select-option>Beograd</ion-select-option>
+          <ion-select-option>Nis</ion-select-option>
+          <ion-select-option>Novi Sad</ion-select-option>
+          <ion-select-option>Kragujevac</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="grad.invalid && grad.touched">
+        <ion-label color="danger">Izaberite grad!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Adresa:</ion-label>
+          <ion-input type="text" ngModel name="adresa" required #adresa="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="adresa.invalid && adresa.touched">
+        <ion-label color="danger">Unesite adresu!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Broj:</ion-label>
+        <ion-input type="text" ngModel name="broj" required #broj="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="broj.invalid && broj.touched">
+        <ion-label color="danger">Unesite broj stana!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="6">
+      <ion-button expand="full" (click)="postaviKorak(1)">
+       Nazad</ion-button>
+      <ion-button expand="full"(click)="postaviKorak(3)">
+       Dalje</ion-button>
+    </ion-col>
+  </ion-row>
+    </ion-item-group>
+  <ion-item-group [hidden]="(korak!==3)">
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Uknjizeno:</ion-label>
+        <ion-select ngModel name="uknjizeno" required #uknjizeno="ngModel">
+          <ion-select-option>Uknjizen</ion-select-option>
+          <ion-select-option>Nije uknjizen</ion-select-option>
+          <ion-select-option>Delimicno uknjizen</ion-select-option>
+          <ion-select-option>U procesu uknjizavanja</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="uknjizeno.invalid && uknjizeno.touched">
+        <ion-label color="danger">Izaberite status nekretnine!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Godina izgradnje:</ion-label>
+        <ion-select ngModel name="godinaIzgradnje" required #godinaIzgradnje="ngModel">
+          <ion-select-option *ngFor="let godina of godine">{{godina}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="godinaIzgradnje .invalid && godinaIzgradnje.touched">
+        <ion-label color="danger">Izaberite godinu izgradnje!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Sprat:</ion-label>
+        <ion-select ngModel name="sprat" required #sprat="ngModel">
+          <ion-select-option *ngFor="let sprat of spratovi" value="{{sprat}}">{{sprat}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="sprat.invalid && sprat.touched">
+        <ion-label color="danger">Izaberite sprat!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Grejanje:</ion-label>
+        <ion-select ngModel name="grejanje" required #grejanje="ngModel">
+          <ion-select-option>Centralno</ion-select-option>
+          <ion-select-option>Etazno</ion-select-option>
+          <ion-select-option>Struja</ion-select-option>
+          <ion-select-option>Gas</ion-select-option>
+          <ion-select-option>Kaljeva pec</ion-select-option>
+          <ion-select-option>Norveski radijatori</ion-select-option>
+          <ion-select-option>Podno</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="grejanje.invalid && grejanje.touched">
+        <ion-label color="danger">Izaberite nacin grejanja!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Broj terasa:</ion-label>
+        <ion-input type="text" ngModel name="terase" required #terase="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="terase.invalid && terase.touched">
+        <ion-label color="danger">Unesite broj terasa!</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Parking mesto:</ion-label>
+        <ion-checkbox></ion-checkbox>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6">
+      <ion-button  expand="full" (click)="postaviKorak(2)">Nazad</ion-button>
+      <ion-button  expand="full" (click)="postaviKorak(4)">Dalje</ion-button>
+    </ion-col>
+  </ion-row>
+    </ion-item-group>
+  <ion-item-group [hidden]="(korak!==4)">
+  <ion-row>
+    <ion-col>
+      <ion-textarea placeholder="Opisite nekretninu" ngModel name="opis"></ion-textarea>
+    </ion-col>
+  </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6">
+      <ion-button  expand="full" (click)="postaviKorak(3)">Nazad</ion-button>
+      <ion-button  expand="full"(click)="postaviKorak(5)">Dalje</ion-button>
+      </ion-col>
+    </ion-row>
+    </ion-item-group>
+  <ion-item-group [hidden]="(korak!==5)">
+    <ion-row>
+        <ion-col size ="4" *ngFor="let fotografija of fotografije" class="ion-align-items-center ion-justify-content-center">
+          <ion-avatar>
+          <ion-img src="{{fotografija}}"></ion-img>
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+    <ion-row>
+      <ion-col size="9">
+        <ion-input placeholder="URL do fotografije" name="linkFotografije" [(ngModel)]="linkFotografije"></ion-input>
+      </ion-col>
+      <ion-col size="3" >
+      <ion-button expand="full" [disabled]="!linkFotografije" (click)="dodajFotografiju()">Dodaj</ion-button>
+      </ion-col>
+    </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="6" class=" ion-align-items-center">
+      <ion-button expand="full" (click)="postaviKorak(4)">Nazad</ion-button>
+      <ion-button expand="full" type="submit" color="success"[disabled]="!NoviOglasForm.valid">Postavi oglas</ion-button>
+    </ion-col>
+  </ion-row>
+  </ion-item-group>
+
+</ion-grid>
+  </form>
+</ion-content>
+
+
+
+
++
