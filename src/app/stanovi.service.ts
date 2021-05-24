@@ -33,6 +33,7 @@ export class StanoviService {
   stanovi = new BehaviorSubject<Stan[]>([]);
   fitriraniStanovi: Stan[];
   constructor(private  http: HttpClient) {
+
     //this.stanovi = [];
 
     // this.ucitajStanIzBaze().subscribe((podaciStan)=> {
@@ -196,7 +197,7 @@ export class StanoviService {
   public minCena(): number{
     let min = this.stanovi.getValue()[0].cena;
     for(const stan of this.stanovi.getValue()){
-      if(stan.cena< min){
+      if(stan.cena <= Number(min)){
         min = stan.cena;
       }
     }
@@ -206,7 +207,7 @@ export class StanoviService {
   public maxCena(): number{
     let max = this.stanovi.getValue()[0].cena;
     for(const stan of this.stanovi.getValue()){
-      if(stan.cena> max){
+      if(stan.cena> Number(max)){
         max = stan.cena;
       }
     }
@@ -216,7 +217,7 @@ export class StanoviService {
   public maxPovrsina(): number{
     let max = this.stanovi.getValue()[0].povrsina;
     for(const stan of this.stanovi.getValue()){
-      if(stan.povrsina > max){
+      if(stan.povrsina > Number(max)){
         max = stan.povrsina;
       }
     }
@@ -226,26 +227,62 @@ export class StanoviService {
   public minPovrsina(): number{
     let max = this.stanovi.getValue()[0].povrsina;
     for(const stan of this.stanovi.getValue()){
-      if(stan.povrsina < max){
+      if(stan.povrsina < Number(max)){
         max = stan.povrsina;
       }
     }
     return max;
   }
 
+  public konvertujStanove(stanovi: Stan[]): Stan[]{
+    let novi = [];
+    let stan: Stan;
+    for(let s of stanovi){
+      stan = new class implements Stan {
+        adresa: string = s.adresa;
+        broj: string = s.broj;
+        brojSoba: string = s.brojSoba;
+        brojTerasa: number = Number(s.brojTerasa);
+        cena: number = Number(s.cena);
+        fotografije: string[] = s.fotografije;
+        godinaIzgradnje: number = Number(s.godinaIzgradnje);
+        grad: string = s.grad;
+        grejanje: Grejanje = s.grejanje;
+        id: string = s.id;
+        izdavanje: boolean = Boolean(s.izdavanje);
+        opis: string = s.opis;
+        parking: boolean = Boolean(s.parking);
+        povrsina: number = Number(s.povrsina);
+        // @ts-ignore
+        sprat: Spratnost = Spratnost[s.sprat];
+        status: string = s.status;
+      }
+      if(stan.sprat>Spratnost["Potkrovlje"]){
+        console.log('Vece nego podrum');
+      }else{
+        console.log('Nije vece nego podrum')
+      }
+      novi.push(stan);
+    }
+    return novi;
+  }
+
+
   public filtrirajStanove(grad: string, minCena: number, maxCena: number, minPovrsina: number, maxPovrsina: number, spratOD?: Spratnost, spratDO?: Spratnost, grejanje?: string[], parking?: any, uknjizeno?: any, terasa?: any){
-    let filtriraniStanovi;
-    filtriraniStanovi = this.stanovi.getValue().filter(s => s.cena>=minCena && s.cena<=maxCena && s.povrsina>=minPovrsina && s.povrsina<=maxPovrsina && s.grad==grad);
+    let filtriraniStanovi = this.konvertujStanove(this.stanovi.getValue());
+    console.log("Filtrirani stanovi 1");
+    console.log(filtriraniStanovi);
+    filtriraniStanovi = filtriraniStanovi.filter(s => s.cena>=minCena && s.cena<=maxCena && s.povrsina>=minPovrsina && s.povrsina<=maxPovrsina && s.grad==grad);
     if(spratOD){
-      filtriraniStanovi = filtriraniStanovi.filter(s=> s.sprat>=Spratnost[spratOD]);
+      filtriraniStanovi = filtriraniStanovi.filter(s=> s.sprat>=spratOD);
     }
     if(spratDO){
-      filtriraniStanovi = filtriraniStanovi.filter(s=> s.sprat<=Spratnost[spratDO]);
+      filtriraniStanovi = filtriraniStanovi.filter(s=> s.sprat<=spratDO);
     }
-    if(grejanje){
-      filtriraniStanovi = filtriraniStanovi.filter(s=> grejanje.includes(Grejanje[s.grejanje]));
-    }
-
+    // if(grejanje){
+    //   filtriraniStanovi = filtriraniStanovi.filter(s=> grejanje.includes(Grejanje[s.grejanje]));
+    // }
+    //
     if(parking){
       filtriraniStanovi = filtriraniStanovi.filter(s=>s.parking==true);
     }
@@ -256,8 +293,10 @@ export class StanoviService {
       filtriraniStanovi = filtriraniStanovi.filter(s=>s.brojTerasa>0);
     }
 
-
     this.fitriraniStanovi = filtriraniStanovi;
+
+    console.log("Filtrirani stanovi 2");
+    console.log(this.fitriraniStanovi);
   }
 
   public uzmiFiltrirane(){
@@ -265,7 +304,7 @@ export class StanoviService {
   }
 
   public vratiStan(id){
-    return this.stanovi[0];
+    return this.stanovi.getValue().find(s => s.id==id);
   }
 
 }

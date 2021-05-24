@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Form, NgForm} from "@angular/forms";
 import {Spratnost} from "../spratnost.enum";
 import {StanoviService} from "../stanovi.service";
+import {GradoviService} from "../gradovi.service";
 
 @Component({
   selector: 'app-novi-oglas',
@@ -20,8 +21,10 @@ export class NoviOglasPage implements OnInit {
   cetvrtaBoja;
   petaBoja;
   linkFotografije = '';
+  izdavanje: boolean = true;
+  gradovi: string[];
 
-  constructor(private stanoviServis : StanoviService) {
+  constructor(private stanoviServis : StanoviService, private gradoviServis: GradoviService) {
     this.prvaBoja = 'dark';
     this.drugaBoja = 'medium';
     this.trecaBoja = 'medium';
@@ -34,6 +37,8 @@ export class NoviOglasPage implements OnInit {
      }
 
   ngOnInit() {
+
+    this.gradovi = this.gradoviServis.uzmiSve();
 
     for(const sprat in Spratnost) {
       if(isNaN(Number(sprat))) {
@@ -100,4 +105,7 @@ console.log("Oglas se postavlja");
     this.linkFotografije = '';
   }
 
+  promeniSegment() {
+    this.izdavanje = !this.izdavanje;
+  }
 }

@@ -19,6 +19,7 @@ export class PrikazStanaPage implements OnInit {
 
 
   ngOnInit() {
+
     let danas = new Date();
     this.datum = danas.getFullYear();
     this.datum+= ('-' + String(danas.getMonth() + 1).padStart(2, '0'));
@@ -27,7 +28,9 @@ export class PrikazStanaPage implements OnInit {
      const id = this.route.snapshot.paramMap.get('id');
     console.log(id);
     // @ts-ignore
-    this.stan = this.serviceStanovi.vratiStan(id);
+    this.stan = this.serviceStanovi.ucitajStanIzBaze().subscribe(()=>{
+      this.stan = this.serviceStanovi.vratiStan(id);
+    });
   }
 
   zakaziPosetu() {

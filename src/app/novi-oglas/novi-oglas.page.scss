@@ -2,10 +2,11 @@ ion-item{
   --inner-padding-end: 0;
   --inner-padding-start: 0;
   --inner-border-width:0;
-  margin: 0;
   padding: 0;
   border: none;
   justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 ion-list{
@@ -33,5 +34,7 @@ ion-avatar{
   height: 130px;
 }
 
-
+#koraci{
+  margin-bottom: 50px;
+}
 

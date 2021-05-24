@@ -17,10 +17,7 @@
     <ion-item>
       <ion-label>Izaberite grad:</ion-label>
       <ion-select ngModel name="grad" #grad="ngModel" required>
-        <ion-select-option>Beograd</ion-select-option>
-        <ion-select-option>Novi Sad</ion-select-option>
-        <ion-select-option>Nis</ion-select-option>
-        <ion-select-option>Kragujevac</ion-select-option>
+        <ion-select-option *ngFor="let grad of gradovi" value="{{grad}}">{{grad}}</ion-select-option>
       </ion-select>
     </ion-item>
       <ion-item>
@@ -66,10 +63,7 @@
             <ion-item>
               <ion-label >Izaberite grad:</ion-label>
               <ion-select ngModel name="grad" #grad="ngModel" required>
-                <ion-select-option>Beograd</ion-select-option>
-                <ion-select-option>Novi Sad</ion-select-option>
-                <ion-select-option>Nis</ion-select-option>
-                <ion-select-option>Kragujevac</ion-select-option>
+                <ion-select-option *ngFor="let grad of gradovi" value="{{grad}}">{{grad}}</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item>
@@ -99,9 +93,6 @@
             </ion-item>
           </ion-col>
         </ion-row>
-<ion-row style="justify-content:end">
-  <ion-title color="primary" style="text-align: start; padding: 10px">Spratnost:</ion-title>
-</ion-row>
         <ion-row style="justify-content: space-around">
             <ion-label>Sprat od:</ion-label>
             <ion-select ngModel name="spratOD" #spratOD="ngModel">

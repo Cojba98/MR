@@ -10,11 +10,11 @@
 <ion-content>
   <form #NoviOglasForm="ngForm" (ngSubmit)="postaviOglas(NoviOglasForm)">
 <ion-grid class="ion-no-padding ion-no-margin">
-  <ion-item-group>
+  <ion-item-group id="koraci">
     <ion-row class="ion-nowrap ion-margin-top ">
       <ion-col size="2" offset="1" class="ion-justify-content-center">
     <ion-list>
-
+<!--  <ion-icon src="../assets/icon/1.svg" color="{{prvaBoja}}" [style]="{'font-size':'15px'}"></ion-icon>-->
       <ion-label color="{{prvaBoja}}">Osnovno</ion-label>
       <ion-icon name="information-circle" color="{{prvaBoja}}"></ion-icon>
     </ion-list>
@@ -49,6 +49,16 @@
   <ion-item-group [hidden]="(korak!==1)">
   <ion-row>
     <ion-col>
+
+      <ion-segment (ionChange)="promeniSegment()" value="izdavanje" color="tertiary">
+        <ion-segment-button value="izdavanje" >
+          <ion-label>Izdavanje</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="prodaja">
+          <ion-label>Prodaja</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
       <ion-item>
         <ion-label>Broj soba:</ion-label>
         <ion-select ngModel name="brojSoba" #brojSoba="ngModel" required>
@@ -98,10 +108,7 @@
       <ion-item>
         <ion-label>Grad:</ion-label>
         <ion-select ngModel name="grad" required #grad="ngModel">
-          <ion-select-option>Beograd</ion-select-option>
-          <ion-select-option>Nis</ion-select-option>
-          <ion-select-option>Novi Sad</ion-select-option>
-          <ion-select-option>Kragujevac</ion-select-option>
+          <ion-select-option *ngFor="let grad of gradovi" value="{{grad}}">{{grad}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item *ngIf="grad.invalid && grad.touched">

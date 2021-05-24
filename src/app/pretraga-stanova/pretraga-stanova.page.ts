@@ -5,6 +5,7 @@ import {NgForm} from "@angular/forms";
 import {Spratnost} from "../spratnost.enum";
 import {Grejanje} from "../grejanje.enum";
 import {IonCheckbox} from "@ionic/angular";
+import {GradoviService} from "../gradovi.service";
 
 @Component({
   selector: 'app-pretraga-stanova',
@@ -33,18 +34,36 @@ private grejanje = []
   parking: any;
   uknjizeno: any;
   terasa: any;
+  gradovi: string[];
 
-  constructor( private servisStanovi: StanoviService, private router: Router) { }
+  constructor( private servisStanovi: StanoviService, private router: Router, private gradoviServis: GradoviService) {
+
+    this.gradovi = this.gradoviServis.uzmiSve();
+
+    this.servisStanovi.ucitajStanIzBaze().subscribe(()=>{
+      console.log("Stanovi ucitani");
+
+
+      this.minCena = this.servisStanovi.minCena();
+      this.maxCena = this.servisStanovi.maxCena();
+      this.minPovrsina = this.servisStanovi.minPovrsina();
+      this.maxPovrsina = this.servisStanovi.maxPovrsina();
+      this.vrednosti.upper = this.maxCena;
+      this.vrednosti.lower = this.minCena;
+      this.kvadratura.upper = this.maxPovrsina;
+      this.kvadratura.lower = this.minPovrsina
+
+      console.log(this.vrednosti.upper);
+      console.log(this.vrednosti.lower)
+      console.log(this.kvadratura.upper);
+      console.log(this.kvadratura.lower);
+
+    })
+
+  }
 
   ngOnInit() {
-    this.minCena = this.servisStanovi.minCena();
-    this.maxCena = this.servisStanovi.maxCena();
-    this.minPovrsina = this.servisStanovi.minPovrsina();
-    this.maxPovrsina = this.servisStanovi.maxPovrsina();
-    this.vrednosti.upper = this.maxCena;
-    this.vrednosti.lower = this.minCena;
-    this.kvadratura.upper = this.maxPovrsina;
-    this.kvadratura.lower = this.minPovrsina;
+
     for(const sprat in Spratnost) {
       if(isNaN(Number(sprat))) {
         this.spratovi.push(sprat);
@@ -57,6 +76,9 @@ private grejanje = []
       }
     }
   this.grejanjePretraga = this.grejanje;
+
+
+
   }
 
   pretraziStanove(OsnovnaPretraga: NgForm) {
@@ -68,11 +90,16 @@ private grejanje = []
     console.log(OsnovnaPretraga);
     console.log(this.parking);
 
-    this.servisStanovi.filtrirajStanove(OsnovnaPretraga.value.grad, this.vrednosti.lower, this.vrednosti.upper,
-      this.kvadratura.lower, this.kvadratura.upper, OsnovnaPretraga.value.spratOD,
-      OsnovnaPretraga.value.spratDO, this.grejanjePretraga, OsnovnaPretraga.value.parking, OsnovnaPretraga.value.uknjizeno,
+    this.servisStanovi.ucitajStanIzBaze().subscribe(()=>{
+
+
+      this.servisStanovi.filtrirajStanove(OsnovnaPretraga.value.grad, this.vrednosti.lower, this.vrednosti.upper,
+        // @ts-ignore
+        this.kvadratura.lower, this.kvadratura.upper, Spratnost[OsnovnaPretraga.value.spratOD],
+      Spratnost[OsnovnaPretraga.value.spratDO], this.grejanjePretraga, OsnovnaPretraga.value.parking, OsnovnaPretraga.value.uknjizeno,
       OsnovnaPretraga.value.terasa);
     this.router.navigate(['stanovi'], {queryParams: {filter: true}});
+    })
   }
 
   dodajGrejanje(grej: any | IonCheckbox) {

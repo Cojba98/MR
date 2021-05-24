@@ -3,5 +3,8 @@ export enum Grejanje {
   'Centralno',
   'Etazno',
   'Struja',
-  'Gas'
+  'Gas',
+  'Kaljeva pec',
+  'Norveski radijatori',
+  'Podno'
 }

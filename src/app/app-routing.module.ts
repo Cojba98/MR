@@ -16,14 +16,14 @@ const routes: Routes = [
   {
     path: 'novi-oglas',
     loadChildren: () => import('./novi-oglas/novi-oglas.module').then( m => m.NoviOglasPageModule),
-    canLoad: [AuthGuard]
+     canLoad: [AuthGuard]
   },
   {
     path: 'stanovi',
     loadChildren: () => import('./stanovi/stanovi.module').then( m => m.StanoviPageModule)
   },
   {
-    path: 'prikaz-stana/:id',
+    path: 'stanovi/prikaz-stana/:id',
     loadChildren: () => import('./prikaz-stana/prikaz-stana.module').then( m => m.PrikazStanaPageModule)
   },
   {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StanoviService} from '../stanovi.service';
 import {Stan} from '../stan';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Spratnost} from '../spratnost.enum';
 import {Grejanje} from '../grejanje.enum';
 
@@ -16,31 +16,41 @@ export class StanoviPage implements OnInit{
   stanovi: Stan[];
   grid: boolean;
 
-  constructor(private stanoviServis: StanoviService, private route: ActivatedRoute) {
+  constructor(private stanoviServis: StanoviService, private route: ActivatedRoute, private router: Router) {
 
   }
 
   ngOnInit() {
-    this.stanoviServis.stanovi.subscribe((podaciStan) => {
-      this.stanovi = podaciStan;
-    });
     if (this.route.snapshot.queryParams.filter) {
+      console.log("Uzima filtrirane")
       this.stanovi = this.stanoviServis.uzmiFiltrirane();
+      console.log(this.stanovi);
+    }else {
+      console.log("Uzima nefiltrirane")
+      this.stanoviServis.ucitajStanIzBaze().subscribe((podaciStan) => {
+        this.stanovi = podaciStan;
+        console.log(this.stanovi);
+      });
     }
 
-    //this.stanoviServis.dodajStanUBazu('1',true,'tri',32,22323,'bg','vs','21','status',
-    //1989, Spratnost['1. sprat'],Grejanje.Etazno, 2,true,'najbolje',[] ).subscribe(()=> {
-    //console.log('Upisan stan');
-    //});
   }
 
  ionViewWillEnter(){
-   this.stanoviServis.ucitajStanIzBaze().subscribe((podaciStan) => {
-     this.stanovi = podaciStan;
-   });
    if (this.route.snapshot.queryParams.filter) {
+     console.log("Uzima filtrirane")
      this.stanovi = this.stanoviServis.uzmiFiltrirane();
+     console.log(this.stanovi);
+   }else {
+     console.log("Uzima nefiltrirane")
+     this.stanoviServis.ucitajStanIzBaze().subscribe((podaciStan) => {
+       this.stanovi = podaciStan;
+       console.log(this.stanovi);
+     });
    }
- }
 
+  }
+
+  prikaziStan(id: string) {
+  this.router.navigateByUrl('stanovi/prikaz-stana/'+id);
+  }
 }

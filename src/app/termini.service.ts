@@ -12,22 +12,24 @@ export class TerminiService {
 
   constructor(private serviceStanovi: StanoviService) {
 
+    serviceStanovi.ucitajStanIzBaze().subscribe((podaci) =>{
+
     const termin: Termin = {
-    stan: serviceStanovi.uzmiSve()[0],
+    stan: podaci[0],
     datum: new Date(2021, 11, 11, 23, 23),
       status: StatusTermina.NEPOTVRDJENO
     };
     this.termini.push(termin);
 
     const termin2: Termin = {
-      stan: serviceStanovi.uzmiSve()[0],
+      stan: podaci[0],
       datum: new Date(2030, 10, 23, 12, 32),
       status: StatusTermina.POTVRJDJENO
     };
     this.termini.push(termin2);
 
     const termin3: Termin = {
-      stan: serviceStanovi.uzmiSve()[1],
+      stan: podaci[1],
       datum: new Date(2022, 10, 9, 12, 32),
       status: StatusTermina.ODBIJENO
     };
@@ -35,6 +37,7 @@ export class TerminiService {
 
     this.termini = this.termini.filter(t => t.datum>new Date());
     this.sorirajTermine();
+    })
   }
 
   public uzmiSve(){
