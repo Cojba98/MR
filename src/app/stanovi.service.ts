@@ -8,7 +8,7 @@ import {BehaviorSubject} from "rxjs";
 
 interface StanPodaci{
   id: string;
-  izdavanje: boolean;
+  izdavanje: string;
   brojSoba: string;
   povrsina: number;
   cena: number;
@@ -20,9 +20,11 @@ interface StanPodaci{
   sprat: Spratnost;
   grejanje: Grejanje;
   brojTerasa: number;
-  parking: boolean;
+  parking: string;
   opis: string;
   fotografije: string[];
+  userEmail: string;
+  userKontaktBroj: string;
 }
 
 @Injectable({
@@ -126,11 +128,12 @@ export class StanoviService {
     //   s1.godinaIzgradnje,s1.sprat,s1.grejanje,s1.brojTerasa,s1.parking,s1.opis,s1.fotografije);
   }
 
-  public dodajStanUBazu(id: string, izdavanje: boolean, brojSoba: string, povrsina: number, cena: number, grad: string,
+  public dodajStanUBazu(id: string, izdavanje: string, brojSoba: string, povrsina: number, cena: number, grad: string,
                         adresa: string, broj: string, status: string, godinaIzgradnje: number, sprat: Spratnost,
-                        grejanje: Grejanje, brojTerasa: number, parking: boolean, opis: string, fotografije: string[]) {
+                        grejanje: Grejanje, brojTerasa: number, parking: string, opis: string, fotografije: string[],
+                        userEmail: string, userKontaktBroj: string) {
     return this.http.post<{name: string}>('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan.json',
-     {id,izdavanje,brojSoba,povrsina,cena,grad,adresa,broj,status,godinaIzgradnje,sprat,grejanje,brojTerasa,parking,opis,fotografije})
+     {id,izdavanje,brojSoba,povrsina,cena,grad,adresa,broj,status,godinaIzgradnje,sprat,grejanje,brojTerasa,parking,opis,fotografije,userEmail, userKontaktBroj})
       .pipe(map((resData) =>{
           this.stanovi.getValue().push({
             id: resData.name,
@@ -148,7 +151,9 @@ export class StanoviService {
             parking,
             povrsina,
             sprat,
-            status
+            status,
+            userEmail,
+            userKontaktBroj
           })
         return this.stanovi;
     }));
@@ -181,7 +186,9 @@ export class StanoviService {
               parking: podaciStan[key].parking,
               povrsina: podaciStan[key].povrsina,
               sprat: podaciStan[key].sprat,
-              status: podaciStan[key].status
+              status: podaciStan[key].status,
+              userEmail: podaciStan[key].userEmail,
+              userKontaktBroj: podaciStan[key].userKontaktBroj
             });
           }
         }
@@ -249,13 +256,15 @@ export class StanoviService {
         grad: string = s.grad;
         grejanje: Grejanje = s.grejanje;
         id: string = s.id;
-        izdavanje: boolean = Boolean(s.izdavanje);
+        izdavanje: string = (s.izdavanje);
         opis: string = s.opis;
-        parking: boolean = Boolean(s.parking);
+        parking: string = (s.parking);
         povrsina: number = Number(s.povrsina);
         // @ts-ignore
         sprat: Spratnost = Spratnost[s.sprat];
         status: string = s.status;
+        userEmail: string = s.userEmail;
+        userKontaktBroj: string = s.userKontaktBroj;
       }
       if(stan.sprat>Spratnost["Potkrovlje"]){
         console.log('Vece nego podrum');
@@ -284,7 +293,7 @@ export class StanoviService {
     // }
     //
     if(parking){
-      filtriraniStanovi = filtriraniStanovi.filter(s=>s.parking==true);
+      filtriraniStanovi = filtriraniStanovi.filter(s=>s.parking=='da');
     }
     if(uknjizeno){
       filtriraniStanovi = filtriraniStanovi.filter(s=>s.status=='Uknjizen');

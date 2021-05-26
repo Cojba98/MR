@@ -1,7 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {StanoviService} from "../stanovi.service";
 import {Stan} from "../stan";
+import {TerminiService} from "../termini.service";
+import {StatusTermina} from "../status-termina.enum";
+import {NgModel} from "@angular/forms";
+import {formatDate} from "@angular/common";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-prikaz-stana',
@@ -13,7 +18,8 @@ export class PrikazStanaPage implements OnInit {
   stan: Stan;
   datum;
 
-  constructor(private route: ActivatedRoute, private serviceStanovi: StanoviService) {
+  constructor(private route: ActivatedRoute, private serviceStanovi: StanoviService,
+              private terminiServis: TerminiService, private authService : AuthService) {
 
   }
 
@@ -33,7 +39,19 @@ export class PrikazStanaPage implements OnInit {
     });
   }
 
-  zakaziPosetu() {
+  zakaziPosetu(idStana: string, brojTelefonaVlasnika: string, emailVlasnika: string, datum: string, vreme: string,
+               emailKupca: string, status: string) {
+    console.log(datum);
+    console.log(vreme);
+    this.terminiServis.dodajTerminUBazu(idStana, brojTelefonaVlasnika, emailVlasnika, datum, vreme, this.authService.userEmail, status)
+      .subscribe();
+  }
 
+  pretvoriDatumUString(datum) {
+    return formatDate(datum,'mediumDate','en-US');
+  }
+
+  pretvoriVremeUString(vreme) {
+    return formatDate(vreme,'shortTime','en-US');
   }
 }

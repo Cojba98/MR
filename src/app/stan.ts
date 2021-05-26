@@ -3,7 +3,7 @@ import {Grejanje} from "./grejanje.enum";
 
 export interface Stan {
   id: string;
-  izdavanje: boolean;
+  izdavanje: string;
   brojSoba: string;
   povrsina: number;
   cena: number;
@@ -15,7 +15,9 @@ export interface Stan {
   sprat: Spratnost;
   grejanje: Grejanje;
   brojTerasa: number;
-  parking: boolean;
+  parking: string;
   opis: string;
   fotografije: string[];
+  userEmail: string;
+  userKontaktBroj: string;
 }

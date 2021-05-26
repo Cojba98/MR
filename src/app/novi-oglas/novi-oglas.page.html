@@ -50,11 +50,11 @@
   <ion-row>
     <ion-col>
 
-      <ion-segment (ionChange)="promeniSegment()" value="izdavanje" color="tertiary">
-        <ion-segment-button value="izdavanje" >
+      <ion-segment (ionChange)="promeniSegment()" value="izdavanje" color="tertiary" ngModel name="izdavanje" #izdavanje="ngModel">
+        <ion-segment-button value=true >
           <ion-label>Izdavanje</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="prodaja">
+        <ion-segment-button value=false>
           <ion-label>Prodaja</ion-label>
         </ion-segment-button>
       </ion-segment>
@@ -152,14 +152,14 @@
     <ion-col>
       <ion-item>
         <ion-label>Uknjizeno:</ion-label>
-        <ion-select ngModel name="uknjizeno" required #uknjizeno="ngModel">
+        <ion-select ngModel name="status" required #status="ngModel">
           <ion-select-option>Uknjizen</ion-select-option>
           <ion-select-option>Nije uknjizen</ion-select-option>
           <ion-select-option>Delimicno uknjizen</ion-select-option>
           <ion-select-option>U procesu uknjizavanja</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="uknjizeno.invalid && uknjizeno.touched">
+      <ion-item *ngIf="status.invalid && status.touched">
         <ion-label color="danger">Izaberite status nekretnine!</ion-label>
       </ion-item>
     </ion-col>
@@ -224,7 +224,7 @@
     <ion-col>
       <ion-item>
         <ion-label>Parking mesto:</ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox ngModel name="parking" #parking="ngModel"></ion-checkbox>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -249,6 +249,19 @@
     </ion-row>
     </ion-item-group>
   <ion-item-group [hidden]="(korak!==5)">
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Kontakt broj:</ion-label>
+          <ion-input type="tel" ngModel name="kontaktBroj" required #kontaktBroj="ngModel"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="kontaktBroj.invalid && kontaktBroj.touched">
+          <ion-label color="danger">Unesite kontakt broj!</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
         <ion-col size ="4" *ngFor="let fotografija of fotografije" class="ion-align-items-center ion-justify-content-center">
           <ion-avatar>

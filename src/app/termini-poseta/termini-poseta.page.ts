@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TerminiService} from "../termini.service";
-import {StatusTermina} from "../status-termina.enum";
-import {Termin} from "../termin";
+import {TerminiService} from '../termini.service';
+import {StatusTermina} from '../status-termina.enum';
+import {Termin} from '../termin';
 
 @Component({
   selector: 'app-termini-poseta',
@@ -10,14 +10,16 @@ import {Termin} from "../termin";
 })
 export class TerminiPosetaPage implements OnInit {
 
-  termini: Termin[]
+  termini: Termin[];
 
-  constructor(private serviceTermin: TerminiService) {
+  constructor(private terminiServis: TerminiService) {
   }
 
   ngOnInit() {
-    this.termini = this.serviceTermin.uzmiSve();
-    console.log(this.termini);
+    this.terminiServis.ucitajTerminIzBaze().subscribe((podaciTermin) => {
+      this.termini = podaciTermin;
+      console.log(this.termini);
+    });
   }
 
   datum(datum: Date) {
@@ -28,29 +30,29 @@ export class TerminiPosetaPage implements OnInit {
     return datum.getHours() + ':' + datum.getMinutes();
   }
 
-  boja(status: StatusTermina) {
+  boja(status: string) {
     switch (status) {
-      case StatusTermina.NEPOTVRDJENO:
+      case 'na cekanju':
         return 'light';
-      case StatusTermina.POTVRJDJENO:
+      case 'potvrdjeno':
         return 'success';
         break;
-      case StatusTermina.ODBIJENO:
+      case 'odbijeno':
         return 'danger';
     }
     return 'primary';
   }
 
-  potvrdiTermin(termin: Termin){
-termin.status= StatusTermina.POTVRJDJENO;
+  potvrdiTermin(termin: Termin) {
+    termin.status = 'potvrdjeno';
   }
 
-  odbijTermin(termin: Termin){
-termin.status = StatusTermina.ODBIJENO;
+  odbijTermin(termin: Termin) {
+    termin.status = 'odbijeno';
   }
 
-  sirina(status: StatusTermina) : number{
-    if(status===StatusTermina.NEPOTVRDJENO){
+  sirina(status: string): number {
+    if (status === 'na cekanju') {
       return 5;
     }
     return 6;

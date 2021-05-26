@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-meni-prijavljen',
@@ -7,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeniPrijavljenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {}
+
+  onLogOut() {
+    this.authService.logOut();
+    this.router.navigateByUrl('/home');
+  }
 
 }

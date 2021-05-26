@@ -10,14 +10,16 @@ import {StatusTermina} from "../status-termina.enum";
 })
 export class TerminiPage implements OnInit {
 
-  private termini: Termin[];
+  termini: Termin[];
 
-  constructor(private serviceTermin: TerminiService) {
+  constructor(private terminiServis: TerminiService) {
   }
 
   ngOnInit() {
-    this.termini = this.serviceTermin.uzmiSve();
-    console.log(this.termini);
+    this.terminiServis.ucitajTerminIzBaze().subscribe((podaciTermin) => {
+      this.termini = podaciTermin;
+      console.log(this.termini);
+    });
   }
 
   datum(datum: Date) {
@@ -28,14 +30,14 @@ export class TerminiPage implements OnInit {
     return datum.getHours() + ':' + datum.getMinutes();
   }
 
-  boja(status: StatusTermina) {
+  boja(status: string) {
     switch (status) {
-      case StatusTermina.NEPOTVRDJENO:
+      case 'na cekanju':
         return 'light';
-      case StatusTermina.POTVRJDJENO:
+      case 'potvrdjeno':
         return 'success';
         break;
-      case StatusTermina.ODBIJENO:
+      case 'odbijeno':
         return 'danger';
     }
     return 'primary';

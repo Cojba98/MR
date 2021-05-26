@@ -56,9 +56,7 @@
     </ion-item>
     <ion-item>
       <ion-icon src="../assets/icon/parking.svg"></ion-icon>
-      <ion-label>Parking:</ion-label>
-      <ion-icon *ngIf="stan.parking" color="success" name="checkmark-outline"></ion-icon>
-      <ion-icon *ngIf="!stan.parking" color="danger"name="close-circle-outline"></ion-icon>
+      <ion-label>Parking: {{stan.parking}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-icon src="../assets/icon/flame.svg"></ion-icon>
@@ -66,7 +64,7 @@
     </ion-item>
     <ion-item>
       <ion-icon src="../assets/icon/accept.svg"></ion-icon>
-      <ion-label>Status: {{stan.status}}</ion-label>
+      <ion-label>Status: {{stan.izdavanje === "true" ? 'izdavanje' : 'prodaja'}}</ion-label>
     </ion-item>
       </ion-list>
       <ion-label id="naslov">Opis nekretnine</ion-label>
@@ -75,23 +73,24 @@
       <ion-label>Opis: {{stan.opis}}</ion-label>
     </ion-item>
       <ion-label id="naslov">Kontakt informacije</ion-label>
-      <form #Zakazivanje="ngForm" (ngSubmit)="zakaziPosetu()">
+      <form #Zakazivanje="ngForm" (ngSubmit)="zakaziPosetu(stan.id,stan.userKontaktBroj,stan.userEmail,
+      pretvoriDatumUString(datumGledanja.value),pretvoriVremeUString(vreme.value),'','na cekanju')">
       <ion-list>
         <ion-item>
           <ion-icon name="call-outline"></ion-icon>
-          <ion-label>Broj telefona: 0621130219</ion-label>
+          <ion-label>Broj telefona: {{stan.userKontaktBroj}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-icon name="mail-outline"></ion-icon>
-          <ion-label>Email: novak.cojbasic@gmail.com</ion-label>
+          <ion-label>Email: {{stan.userEmail}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-icon name="calendar-outline"></ion-icon>
-        <ion-datetime min="{{datum}}" ngModel name="datum" display-format="DD-MMMM-YYYY" placeholder="Izaberite datum" required></ion-datetime>
+        <ion-datetime min="{{datum}}" ngModel name="datum" display-format="DD-MMMM-YYYY" placeholder="Izaberite datum" required #datumGledanja="ngModel"></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-icon name="time-outline"></ion-icon>
-          <ion-datetime display-format="HH:MM" ngModel name="vreme" placeholder="Izaberite vreme" required></ion-datetime>
+          <ion-datetime display-format="HH:MM" ngModel name="vreme" placeholder="Izaberite vreme" required #vreme="ngModel"></ion-datetime>
         </ion-item>
   </ion-list>
       <ion-button type="submit" color="success"[disabled]="!Zakazivanje.valid">Zakazite pregled stana</ion-button>

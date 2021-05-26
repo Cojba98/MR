@@ -3,6 +3,9 @@ import {Form, NgForm} from "@angular/forms";
 import {Spratnost} from "../spratnost.enum";
 import {StanoviService} from "../stanovi.service";
 import {GradoviService} from "../gradovi.service";
+import {AuthService} from "../auth/auth.service";
+import {Router} from "@angular/router";
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-novi-oglas',
@@ -24,7 +27,8 @@ export class NoviOglasPage implements OnInit {
   izdavanje: boolean = true;
   gradovi: string[];
 
-  constructor(private stanoviServis : StanoviService, private gradoviServis: GradoviService) {
+  constructor(private stanoviServis: StanoviService, private gradoviServis: GradoviService, private authService: AuthService,
+              private router: Router) {
     this.prvaBoja = 'dark';
     this.drugaBoja = 'medium';
     this.trecaBoja = 'medium';
@@ -91,10 +95,12 @@ export class NoviOglasPage implements OnInit {
   }
 
   postaviOglas(form: NgForm) {
-    this.stanoviServis.dodajStanUBazu('1',form.value.izdavanje,form.value.brojSoba,form.value.povrsina,
-      form.value.cena,form.value.grad,form.value.adresa,form.value.broj,form.value.status,form.value.godinaIzgradnje,
-      form.value.sprat,form.value.grejanje,form.value.brojTerasa,form.value.parking,form.value.opis,this.fotografije).subscribe();
-console.log("Oglas se postavlja");
+    this.stanoviServis.dodajStanUBazu(uuid.v4(), form.value.izdavanje, form.value.brojSoba, form.value.povrsina,
+      form.value.cena, form.value.grad, form.value.adresa, form.value.broj, form.value.status, form.value.godinaIzgradnje,
+      form.value.sprat, form.value.grejanje, form.value.terase, form.value.parking ? 'da' : 'ne', form.value.opis, this.fotografije,
+      this.authService.userEmail, form.value.kontaktBroj).subscribe();
+    console.log("Oglas se postavlja");
+    this.router.navigateByUrl("/stanovi");
   }
 
   dodajFotografiju() {

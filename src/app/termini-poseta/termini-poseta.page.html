@@ -15,19 +15,19 @@
           <ion-col size="{{sirina(termin.status)}}">
             <ion-item lines="none" color="{{boja(termin.status)}}" >
               <ion-icon name="location-outline" size="large"></ion-icon>
-              <ion-label class="ion-text-wrap">{{termin.stan.grad + ' ' + termin.stan.adresa + ' ' + termin.stan.broj}}</ion-label>
+              <ion-label class="ion-text-wrap">{{termin.idStana + ' ' + termin.emailKupca + ' ' + termin.emailVlasnika}}</ion-label>
             </ion-item>
           </ion-col>
           <ion-col size="{{sirina(termin.status)}}" color="{{boja(termin.status)}}">
             <ion-item lines="none" color="{{boja(termin.status)}}" >
               <ion-icon name="time-outline" id="datum-vreme"></ion-icon>
               <ion-item-group>
-                <ion-label >{{datum(termin.datum)}}</ion-label>
-                <ion-label >{{vreme(termin.datum)}}</ion-label>
+                <ion-label >{{(termin.datum)}}</ion-label>
+                <ion-label >{{(termin.vreme)}}</ion-label>
               </ion-item-group>
             </ion-item>
           </ion-col>
-          <ion-col size="2" color="{{boja(termin.status)}}" *ngIf="termin.status===0">
+          <ion-col size="2" color="{{boja(termin.status)}}" *ngIf="termin.status==='na cekanju'">
             <ion-icon color="success" name="checkmark-outline" (click)="potvrdiTermin(termin)"></ion-icon>
             <ion-icon color="danger" name="close-outline" (click)="odbijTermin(termin)"></ion-icon>
           </ion-col>

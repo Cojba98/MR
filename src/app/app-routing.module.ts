@@ -24,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'stanovi/prikaz-stana/:id',
-    loadChildren: () => import('./prikaz-stana/prikaz-stana.module').then( m => m.PrikazStanaPageModule)
+    loadChildren: () => import('./prikaz-stana/prikaz-stana.module').then( m => m.PrikazStanaPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'pretraga-stanova',

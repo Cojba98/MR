@@ -1,7 +1,7 @@
 <ion-menu side="start" menuId="prijavljen" contentId="prijavljen">
   <ion-header>
     <ion-toolbar color="primary">
-      <ion-title>Prijavljeni meni</ion-title>
+      <ion-title>Meni</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
@@ -41,6 +41,13 @@
       <ion-menu-toggle>
 
         <ion-item routerLink="register"> <ion-icon name="person-add-outline"></ion-icon>Registracija</ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item (click)="onLogOut()">
+          <ion-icon name="log-out"></ion-icon>
+          Odjavi se
+        </ion-item>
       </ion-menu-toggle>
 
     </ion-list>
