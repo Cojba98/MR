@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'novi-oglas',
     loadChildren: () => import('./novi-oglas/novi-oglas.module').then( m => m.NoviOglasPageModule),
-     canLoad: [AuthGuard]
+     //canLoad: [AuthGuard]
   },
   {
     path: 'stanovi',
@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     path: 'stanovi/prikaz-stana/:id',
     loadChildren: () => import('./prikaz-stana/prikaz-stana.module').then( m => m.PrikazStanaPageModule),
-    canLoad: [AuthGuard]
+   // canLoad: [AuthGuard]
   },
   {
     path: 'pretraga-stanova',
@@ -34,12 +34,12 @@ const routes: Routes = [
   {
     path: 'termini',
     loadChildren: () => import('./termini/termini.module').then( m => m.TerminiPageModule),
-    canLoad: [AuthGuard]
+    //canLoad: [AuthGuard]
   },
   {
     path: 'termini-poseta',
     loadChildren: () => import('./termini-poseta/termini-poseta.module').then( m => m.TerminiPosetaPageModule),
-    canLoad: [AuthGuard]
+    //canLoad: [AuthGuard]
   },
   {
     path: 'log-in',
@@ -49,6 +49,16 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
   },
+  {
+    path: 'moji-oglasi',
+    loadChildren: () => import('./moji-oglasi/moji-oglasi.module').then( m => m.MojiOglasiPageModule)
+  },
+  {
+    path: 'izmena-oglasa/:id',
+    loadChildren: () => import('./izmena-oglasa/izmena-oglasa.module').then( m => m.IzmenaOglasaPageModule)
+  },
+
+
 ];
 
 @NgModule({

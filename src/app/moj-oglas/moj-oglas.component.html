@@ -1,0 +1,28 @@
+<ion-item>
+  <ion-avatar slot="start" [style]="{'border-color':boja}">
+    <ion-img src="{{stan.fotografije && stan.fotografije[0]}}"></ion-img>
+  </ion-avatar>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label class="ion-text-wrap">{{stan.grad + ' ' + stan.adresa + ' ' + stan.broj}}</ion-label>
+
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon src="../assets/icon/area.svg"></ion-icon>
+        <ion-label>{{ stan.povrsina}}</ion-label>
+      </ion-col>
+      <ion-col size="3">
+        <ion-label>{{stan.cena}}</ion-label>
+        <ion-icon src="../assets/icon/euro.svg"></ion-icon>
+      </ion-col>
+      <ion-col size="1.5">
+        <ion-icon size="large" (click)="prikazStana()" color="primary" name="brush-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="1.5">
+        <ion-icon size="large" (click)="brisanjeStana()" color="danger" name="trash-bin-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>
+

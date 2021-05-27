@@ -9,9 +9,16 @@ import {Stan} from "../stan";
 export class StanGridItemComponent implements OnInit {
 
   @Input() stan: Stan;
+  boja = '#e04055';
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.stan.izdavanje == 'izdavanje'){
+      this.boja = '#e04055';
+    }else{
+      this.boja = '#36abe0';
+    }
+  }
 
 }

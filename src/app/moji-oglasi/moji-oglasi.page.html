@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Moji oglasi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list >
+    <app-moj-oglas *ngFor="let stan of stanovi" [stan]="stan"></app-moj-oglas>
+  </ion-list>
+</ion-content>

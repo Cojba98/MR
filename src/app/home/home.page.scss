@@ -1,27 +1,49 @@
-#container {
-  text-align: center;
+#pretraga{
+  background-color: #36abe0;
+  ion-label{
+    color: mediumblue;
+    font-size: 30px;
+    width: 100%;
+  }
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+#oglas{
+  background-color: #ed576b;
+  ion-label{
+    color: darkred;
+    font-size: 30px;
+    width: 100%;
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+ion-row{
+  padding-top: 15%;
+  padding-bottom: 15%;
+  height: 50%;
+}
 
-  color: #8c8c8c;
-
+ion-grid{
+  height: 90%;
   margin: 0;
+  padding: 0;
 }
 
-#container a {
-  text-decoration: none;
+p{
+  text-align: center;
+  color: #cccccc;
+  font-size: 25px;
 }
+
+ion-label{
+  text-align: center;
+}
+
+ion-button{
+  width: 200px;
+  height: 40px;
+  color: #36abe0;
+}
+
+
+

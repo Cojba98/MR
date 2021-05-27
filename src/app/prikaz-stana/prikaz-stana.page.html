@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="/stanovi"></ion-back-button>
     </ion-buttons>
-    <ion-title>prikaz-stana</ion-title>
+    <ion-title>Prikaz informacija o stanu</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -56,7 +56,9 @@
     </ion-item>
     <ion-item>
       <ion-icon src="../assets/icon/parking.svg"></ion-icon>
-      <ion-label>Parking: {{stan.parking}}</ion-label>
+      <ion-label>Parking:</ion-label>
+      <ion-icon *ngIf="stan.parking=='da'" size="large" color="success" name="checkmark-circle-outline"></ion-icon>
+      <ion-icon *ngIf="stan.parking=='ne'" size="large" color="danger" name="close-circle-outline"></ion-icon>
     </ion-item>
     <ion-item>
       <ion-icon src="../assets/icon/flame.svg"></ion-icon>
@@ -90,7 +92,7 @@
         </ion-item>
         <ion-item>
           <ion-icon name="time-outline"></ion-icon>
-          <ion-datetime display-format="HH:MM" ngModel name="vreme" placeholder="Izaberite vreme" required #vreme="ngModel"></ion-datetime>
+          <ion-datetime display-format="HH:mm" ngModel name="vreme" placeholder="Izaberite vreme" required #vreme="ngModel"></ion-datetime>
         </ion-item>
   </ion-list>
       <ion-button type="submit" color="success"[disabled]="!Zakazivanje.valid">Zakazite pregled stana</ion-button>

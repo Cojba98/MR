@@ -279,8 +279,6 @@ export class StanoviService {
 
   public filtrirajStanove(grad: string, minCena: number, maxCena: number, minPovrsina: number, maxPovrsina: number, spratOD?: Spratnost, spratDO?: Spratnost, grejanje?: string[], parking?: any, uknjizeno?: any, terasa?: any){
     let filtriraniStanovi = this.konvertujStanove(this.stanovi.getValue());
-    console.log("Filtrirani stanovi 1");
-    console.log(filtriraniStanovi);
     filtriraniStanovi = filtriraniStanovi.filter(s => s.cena>=minCena && s.cena<=maxCena && s.povrsina>=minPovrsina && s.povrsina<=maxPovrsina && s.grad==grad);
     if(spratOD){
       filtriraniStanovi = filtriraniStanovi.filter(s=> s.sprat>=spratOD);
@@ -304,8 +302,6 @@ export class StanoviService {
 
     this.fitriraniStanovi = filtriraniStanovi;
 
-    console.log("Filtrirani stanovi 2");
-    console.log(this.fitriraniStanovi);
   }
 
   public uzmiFiltrirane(){
@@ -315,5 +311,10 @@ export class StanoviService {
   public vratiStan(id){
     return this.stanovi.getValue().find(s => s.id==id);
   }
+
+  public vratiMojeStanove(email: string){
+
+  }
+
 
 }
