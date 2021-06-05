@@ -75,7 +75,7 @@
       <ion-label>Opis: {{stan.opis}}</ion-label>
     </ion-item>
       <ion-label id="naslov">Kontakt informacije</ion-label>
-      <form #Zakazivanje="ngForm" (ngSubmit)="zakaziPosetu(stan.id,stan.userKontaktBroj,stan.userEmail,
+      <form #Zakazivanje="ngForm" (ngSubmit)="zakaziPosetu(stan.id,stan.grad,stan.adresa,stan.broj,stan.userKontaktBroj,stan.userEmail,
       pretvoriDatumUString(datumGledanja.value),pretvoriVremeUString(vreme.value),'','na cekanju')">
       <ion-list>
         <ion-item>

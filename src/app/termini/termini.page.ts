@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Termin} from "../termin";
 import {TerminiService} from "../termini.service";
 import {StatusTermina} from "../status-termina.enum";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-termini',
@@ -10,15 +11,24 @@ import {StatusTermina} from "../status-termina.enum";
 })
 export class TerminiPage implements OnInit {
 
-  termini: Termin[];
+  termini: Termin[] = [];
+  activeUserEmail: string;
+  terminiKupca: Termin[] = [];
 
-  constructor(private terminiServis: TerminiService) {
+  constructor(private terminiServis: TerminiService, private authService: AuthService) {
   }
 
   ngOnInit() {
     this.terminiServis.ucitajTerminIzBaze().subscribe((podaciTermin) => {
       this.termini = podaciTermin;
       console.log(this.termini);
+      this.activeUserEmail = this.authService.userEmail;
+      if(this.termini){
+        this.terminiKupca = this.termini.filter(s => s.emailKupca === this.activeUserEmail);
+      }
+      console.log(this.termini);
+      console.log(this.terminiKupca);
+      console.log(this.activeUserEmail);
     });
   }
 

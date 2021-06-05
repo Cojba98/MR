@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Stan} from "../stan";
 import {Router} from "@angular/router";
+import {StanoviService} from "../stanovi.service";
 
 @Component({
   selector: 'app-moj-oglas',
@@ -11,7 +12,7 @@ export class MojOglasComponent implements OnInit {
 
   @Input() stan: Stan;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private stanoviServis: StanoviService) { }
 
   ngOnInit() {}
 
@@ -20,6 +21,7 @@ export class MojOglasComponent implements OnInit {
   }
 
   brisanjeStana() {
-    //treba implementirati ovde brisanje stana
+    console.log("Brisanje stana: " + this.stan.id);
+    this.stanoviServis.ukloniStan(this.stan.id).subscribe();
   }
 }

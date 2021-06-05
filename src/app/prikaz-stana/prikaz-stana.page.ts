@@ -7,6 +7,7 @@ import {StatusTermina} from "../status-termina.enum";
 import {NgModel} from "@angular/forms";
 import {formatDate} from "@angular/common";
 import {AuthService} from "../auth/auth.service";
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-prikaz-stana',
@@ -39,11 +40,11 @@ export class PrikazStanaPage implements OnInit {
     });
   }
 
-  zakaziPosetu(idStana: string, brojTelefonaVlasnika: string, emailVlasnika: string, datum: string, vreme: string,
+  zakaziPosetu(idStana: string, grad: string, adresa: string, broj: string, brojTelefonaVlasnika: string, emailVlasnika: string, datum: string, vreme: string,
                emailKupca: string, status: string) {
     console.log(datum);
     console.log(vreme);
-    this.terminiServis.dodajTerminUBazu(idStana, brojTelefonaVlasnika, emailVlasnika, datum, vreme, this.authService.userEmail, status)
+    this.terminiServis.dodajTerminUBazu(uuid.v4(),idStana, grad, adresa, broj, brojTelefonaVlasnika, emailVlasnika, datum, vreme, this.authService.userEmail, status)
       .subscribe();
   }
 

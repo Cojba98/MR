@@ -317,4 +317,42 @@ export class StanoviService {
   }
 
 
+  azurirajStanUBazi(id: string, izdavanje: string, brojSoba: string, povrsina: number, cena: number, grad: string,
+                    adresa: string, broj: string, status: string, godinaIzgradnje: number, sprat: Spratnost,
+                    grejanje: Grejanje, brojTerasa: number, parking: string, opis: string, fotografije: string[],
+                    userEmail: string, userKontaktBroj: string) {
+    return this.http.put('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan/' + id + '.json',
+      {id,izdavanje,brojSoba,povrsina,cena,grad,adresa,broj,status,godinaIzgradnje,sprat,grejanje,brojTerasa,parking,opis,fotografije,userEmail, userKontaktBroj})
+      .pipe(map((resData) =>{
+        this.stanovi.getValue().push({
+          id,
+          izdavanje,
+          brojSoba,
+          adresa,
+          broj,
+          brojTerasa,
+          cena,
+          fotografije,
+          godinaIzgradnje,
+          grad,
+          grejanje,
+          opis,
+          parking,
+          povrsina,
+          sprat,
+          status,
+          userEmail,
+          userKontaktBroj
+        })
+        return this.stanovi;
+      }));
+  }
+
+  ukloniStan(id: string) {
+    console.log("Ukloni stan: " + id);
+    return this.http.delete('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan/' + id + '.json')
+      .pipe(map((resData) => {
+        return this.stanovi;
+      }));
+  }
 }

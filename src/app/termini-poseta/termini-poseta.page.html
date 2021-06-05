@@ -9,13 +9,13 @@
 
 <ion-content>
   <ion-list>
-    <ion-item color="{{boja(termin.status)}}" *ngFor="let termin of termini">
+    <ion-item color="{{boja(termin.status)}}" *ngFor="let termin of terminiVlasnika">
       <ion-grid>
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col size="{{sirina(termin.status)}}">
             <ion-item lines="none" color="{{boja(termin.status)}}" >
               <ion-icon name="location-outline" size="large"></ion-icon>
-              <ion-label class="ion-text-wrap">{{termin.idStana + ' ' + termin.emailKupca + ' ' + termin.emailVlasnika}}</ion-label>
+              <ion-label class="ion-text-wrap">{{termin.grad + ' ' + termin.adresa + ' ' + termin.broj}}</ion-label>
             </ion-item>
           </ion-col>
           <ion-col size="{{sirina(termin.status)}}">
