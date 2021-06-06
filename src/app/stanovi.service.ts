@@ -286,10 +286,7 @@ export class StanoviService {
     if(spratDO){
       filtriraniStanovi = filtriraniStanovi.filter(s=> s.sprat<=spratDO);
     }
-    // if(grejanje){
-    //   filtriraniStanovi = filtriraniStanovi.filter(s=> grejanje.includes(Grejanje[s.grejanje]));
-    // }
-    //
+
     if(parking){
       filtriraniStanovi = filtriraniStanovi.filter(s=>s.parking=='da');
     }

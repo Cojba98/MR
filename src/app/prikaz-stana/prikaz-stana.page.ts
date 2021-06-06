@@ -8,6 +8,7 @@ import {NgModel} from "@angular/forms";
 import {formatDate} from "@angular/common";
 import {AuthService} from "../auth/auth.service";
 import * as uuid from 'uuid';
+import {ToastController} from "@ionic/angular";
 
 @Component({
   selector: 'app-prikaz-stana',
@@ -20,7 +21,8 @@ export class PrikazStanaPage implements OnInit {
   datum;
 
   constructor(private route: ActivatedRoute, private serviceStanovi: StanoviService,
-              private terminiServis: TerminiService, private authService : AuthService) {
+              private terminiServis: TerminiService, private authService : AuthService,
+              private toastController: ToastController) {
 
   }
 
@@ -31,12 +33,11 @@ export class PrikazStanaPage implements OnInit {
     this.datum = danas.getFullYear();
     this.datum+= ('-' + String(danas.getMonth() + 1).padStart(2, '0'));
     this.datum+= ('-' + String(danas.getDate()).padStart(2, '0'));
-    console.log(this.datum);
      const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
     // @ts-ignore
     this.stan = this.serviceStanovi.ucitajStanIzBaze().subscribe(()=>{
       this.stan = this.serviceStanovi.vratiStan(id);
+      console.log(this.stan);
     });
   }
 
@@ -45,7 +46,9 @@ export class PrikazStanaPage implements OnInit {
     console.log(datum);
     console.log(vreme);
     this.terminiServis.dodajTerminUBazu(uuid.v4(),idStana, grad, adresa, broj, brojTelefonaVlasnika, emailVlasnika, datum, vreme, this.authService.userEmail, status)
-      .subscribe();
+      .subscribe(()=>{
+        this.presentToast();
+      });
   }
 
   pretvoriDatumUString(datum) {
@@ -54,5 +57,41 @@ export class PrikazStanaPage implements OnInit {
 
   pretvoriVremeUString(vreme) {
     return formatDate(vreme,'shortTime','en-US');
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Predlog termina za posetu je poslat vlasniku na potvrdjivanje',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentToastWithOptions() {
+    const toast = await this.toastController.create({
+      header: 'Zakazivanje termina',
+      message: 'Click to Close',
+      position: 'top',
+      buttons: [
+        {
+          side: 'start',
+          icon: 'star',
+          text: 'Favorite',
+          handler: () => {
+            console.log('Favorite clicked');
+          }
+        }, {
+          text: 'Done',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    await toast.present();
+
+    const { role } = await toast.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 }

@@ -21,7 +21,6 @@ export class MojOglasComponent implements OnInit {
   }
 
   brisanjeStana() {
-    console.log("Brisanje stana: " + this.stan.id);
     this.stanoviServis.ukloniStan(this.stan.id).subscribe();
   }
 }

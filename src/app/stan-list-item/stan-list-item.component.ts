@@ -16,7 +16,7 @@ export class StanListItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.stan.izdavanje == 'izdavanje'){
+    if(this.stan.izdavanje == 'true'){
       this.boja = '#e04055';
     }else{
     this.boja = '#36abe0';

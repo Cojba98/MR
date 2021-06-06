@@ -50,7 +50,7 @@
         <ion-row>
           <ion-col>
 
-            <ion-segment (ionChange)="promeniSegment()" value="izdavanje" color="tertiary" ngModel name="izdavanje" #izdavanje="ngModel">
+            <ion-segment (ionChange)="promeniSegment()" value="true">
               <ion-segment-button value=true >
                 <ion-label>Izdavanje</ion-label>
               </ion-segment-button>
@@ -280,7 +280,7 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size="6" class=" ion-align-items-center">
             <ion-button expand="full" (click)="postaviKorak(4)">Nazad</ion-button>
-            <ion-button expand="full" type="submit" color="success"[disabled]="!NoviOglasForm.valid">Postavi oglas</ion-button>
+            <ion-button expand="full" type="submit" color="success"[disabled]="!NoviOglasForm.valid">Izmeni oglas</ion-button>
           </ion-col>
         </ion-row>
       </ion-item-group>

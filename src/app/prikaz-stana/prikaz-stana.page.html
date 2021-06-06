@@ -15,6 +15,10 @@
 </ion-slides>
 
   <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+    <ion-label *ngIf="stan.izdavanje == 'true'" [style]="{'color': '#ed576b', 'font-size':'30px'}">IZDAVANJE</ion-label>
+    <ion-label *ngIf="stan.izdavanje == 'false'" [style]="{'color': '#36abe0', 'font-size':'30px'}">PRODAJA</ion-label>
+    </ion-row>
     <ion-row>
   <ion-label id="naslov">Osnovne informacije</ion-label>
   <ion-list>
@@ -66,7 +70,7 @@
     </ion-item>
     <ion-item>
       <ion-icon src="../assets/icon/accept.svg"></ion-icon>
-      <ion-label>Status: {{stan.izdavanje === "true" ? 'izdavanje' : 'prodaja'}}</ion-label>
+      <ion-label>Status: {{stan.status}}</ion-label>
     </ion-item>
       </ion-list>
       <ion-label id="naslov">Opis nekretnine</ion-label>

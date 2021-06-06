@@ -95,7 +95,7 @@ export class NoviOglasPage implements OnInit {
   }
 
   postaviOglas(form: NgForm) {
-    this.stanoviServis.dodajStanUBazu(uuid.v4(), form.value.izdavanje, form.value.brojSoba, form.value.povrsina,
+    this.stanoviServis.dodajStanUBazu(uuid.v4(), String(this.izdavanje), form.value.brojSoba, form.value.povrsina,
       form.value.cena, form.value.grad, form.value.adresa, form.value.broj, form.value.status, form.value.godinaIzgradnje,
       form.value.sprat, form.value.grejanje, form.value.terase, form.value.parking ? 'da' : 'ne', form.value.opis, this.fotografije,
       this.authService.userEmail, form.value.kontaktBroj).subscribe();
@@ -113,5 +113,6 @@ export class NoviOglasPage implements OnInit {
 
   promeniSegment() {
     this.izdavanje = !this.izdavanje;
+    console.log(this.izdavanje);
   }
 }

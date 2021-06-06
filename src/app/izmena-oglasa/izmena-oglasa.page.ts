@@ -42,6 +42,8 @@ export class IzmenaOglasaPage implements OnInit {
   opis2: any;
   kontaktBroj2: any;
   id2: any;
+  broj2: string;
+  status2: any;
 
   constructor(private stanoviServis: StanoviService, private gradoviServis: GradoviService, private authService: AuthService,
               private router: Router, private route: ActivatedRoute) {
@@ -90,6 +92,8 @@ export class IzmenaOglasaPage implements OnInit {
     this.kontaktBroj2 = this.stan.userKontaktBroj;
     this.fotografije = this.stan.fotografije;
     this.id2 = this.stan.id;
+    this.broj2 = this.stan.broj;
+    this.status2 = this.stan.status;
   }
 
 
@@ -144,7 +148,7 @@ export class IzmenaOglasaPage implements OnInit {
   }
 
   izmeniOglas(form: NgForm){
-    this.stanoviServis.azurirajStanUBazi(this.id2, form.value.izdavanje, form.value.brojSoba, form.value.povrsina,
+    this.stanoviServis.azurirajStanUBazi(this.id2, String(this.izdavanje), form.value.brojSoba, form.value.povrsina,
       form.value.cena, form.value.grad, form.value.adresa, form.value.broj, form.value.status, form.value.godinaIzgradnje,
       form.value.sprat, form.value.grejanje, form.value.terase, form.value.parking ? 'da' : 'ne', form.value.opis, this.fotografije,
       this.authService.userEmail, form.value.kontaktBroj).subscribe();
