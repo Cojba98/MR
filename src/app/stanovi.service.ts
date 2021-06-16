@@ -3,8 +3,9 @@ import {Stan} from './stan';
 import {Spratnost} from './spratnost.enum';
 import {Grejanje} from './grejanje.enum';
 import {HttpClient} from '@angular/common/http';
-import {map} from "rxjs/operators";
+import {map, switchMap, take} from "rxjs/operators";
 import {BehaviorSubject} from "rxjs";
+import {AuthService} from "./auth/auth.service";
 
 interface StanPodaci{
   id: string;
@@ -34,7 +35,7 @@ export class StanoviService {
 
   stanovi = new BehaviorSubject<Stan[]>([]);
   fitriraniStanovi: Stan[];
-  constructor(private  http: HttpClient) {
+  constructor(private  http: HttpClient, private authService: AuthService) {
 
     //this.stanovi = [];
 
@@ -132,31 +133,37 @@ export class StanoviService {
                         adresa: string, broj: string, status: string, godinaIzgradnje: number, sprat: Spratnost,
                         grejanje: Grejanje, brojTerasa: number, parking: string, opis: string, fotografije: string[],
                         userEmail: string, userKontaktBroj: string) {
-    return this.http.post<{name: string}>('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan.json',
-     {id,izdavanje,brojSoba,povrsina,cena,grad,adresa,broj,status,godinaIzgradnje,sprat,grejanje,brojTerasa,parking,opis,fotografije,userEmail, userKontaktBroj})
-      .pipe(map((resData) =>{
-          this.stanovi.getValue().push({
-            id: resData.name,
-            izdavanje,
-            brojSoba,
-            adresa,
-            broj,
-            brojTerasa,
-            cena,
-            fotografije,
-            godinaIzgradnje,
-            grad,
-            grejanje,
-            opis,
-            parking,
-            povrsina,
-            sprat,
-            status,
-            userEmail,
-            userKontaktBroj
-          })
-        return this.stanovi;
-    }));
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) =>{
+        return this.http.post<{name: string}>('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan.json?auth=' + token,
+          {id,izdavanje,brojSoba,povrsina,cena,grad,adresa,broj,status,godinaIzgradnje,sprat,grejanje,brojTerasa,parking,opis,fotografije,userEmail, userKontaktBroj})
+          .pipe(map((resData) =>{
+            this.stanovi.getValue().push({
+              id: resData.name,
+              izdavanje,
+              brojSoba,
+              adresa,
+              broj,
+              brojTerasa,
+              cena,
+              fotografije,
+              godinaIzgradnje,
+              grad,
+              grejanje,
+              opis,
+              parking,
+              povrsina,
+              sprat,
+              status,
+              userEmail,
+              userKontaktBroj
+            })
+            return this.stanovi;
+          }));
+      })
+    );
+
   }
 
   // public ucitajStanIzBaze(){
@@ -164,8 +171,12 @@ export class StanoviService {
   // }
 
   public ucitajStanIzBaze() {
-    return this.http.get<{ [key: string]: StanPodaci }>('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan.json')
-      .pipe(map((podaciStan) => {
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http.get<{ [key: string]: StanPodaci }>('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan.json?auth=' + token);
+      }),
+      map((podaciStan) => {
         const stan: Stan[] = [];
 
         for (const key in podaciStan) {
@@ -194,7 +205,9 @@ export class StanoviService {
         }
         this.stanovi.next(stan);
         return stan;
-      }));
+      })
+    );
+
   }
 
   public uzmiSve(){
@@ -318,38 +331,49 @@ export class StanoviService {
                     adresa: string, broj: string, status: string, godinaIzgradnje: number, sprat: Spratnost,
                     grejanje: Grejanje, brojTerasa: number, parking: string, opis: string, fotografije: string[],
                     userEmail: string, userKontaktBroj: string) {
-    return this.http.put('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan/' + id + '.json',
-      {id,izdavanje,brojSoba,povrsina,cena,grad,adresa,broj,status,godinaIzgradnje,sprat,grejanje,brojTerasa,parking,opis,fotografije,userEmail, userKontaktBroj})
-      .pipe(map((resData) =>{
-        this.stanovi.getValue().push({
-          id,
-          izdavanje,
-          brojSoba,
-          adresa,
-          broj,
-          brojTerasa,
-          cena,
-          fotografije,
-          godinaIzgradnje,
-          grad,
-          grejanje,
-          opis,
-          parking,
-          povrsina,
-          sprat,
-          status,
-          userEmail,
-          userKontaktBroj
-        })
-        return this.stanovi;
-      }));
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http.put('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan/' + id + '.json?auth=' + token,
+          {id,izdavanje,brojSoba,povrsina,cena,grad,adresa,broj,status,godinaIzgradnje,sprat,grejanje,brojTerasa,parking,opis,fotografije,userEmail, userKontaktBroj})
+          .pipe(map((resData) =>{
+            this.stanovi.getValue().push({
+              id,
+              izdavanje,
+              brojSoba,
+              adresa,
+              broj,
+              brojTerasa,
+              cena,
+              fotografije,
+              godinaIzgradnje,
+              grad,
+              grejanje,
+              opis,
+              parking,
+              povrsina,
+              sprat,
+              status,
+              userEmail,
+              userKontaktBroj
+            })
+            return this.stanovi;
+          }));
+      })
+    );
+
   }
 
   ukloniStan(id: string) {
-    console.log("Ukloni stan: " + id);
-    return this.http.delete('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan/' + id + '.json')
-      .pipe(map((resData) => {
-        return this.stanovi;
-      }));
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        console.log("Ukloni stan: " + id);
+        return this.http.delete('https://mr-app-d15ba-default-rtdb.europe-west1.firebasedatabase.app/stan/' + id + '.json?auth=' + token)
+          .pipe(map((resData) => {
+            return this.stanovi;
+          }));
+      })
+    );
   }
 }

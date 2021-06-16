@@ -16,30 +16,32 @@ const routes: Routes = [
   {
     path: 'novi-oglas',
     loadChildren: () => import('./novi-oglas/novi-oglas.module').then( m => m.NoviOglasPageModule),
-     //canLoad: [AuthGuard]
+     canLoad: [AuthGuard]
   },
   {
     path: 'stanovi',
-    loadChildren: () => import('./stanovi/stanovi.module').then( m => m.StanoviPageModule)
+    loadChildren: () => import('./stanovi/stanovi.module').then( m => m.StanoviPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'stanovi/prikaz-stana/:id',
     loadChildren: () => import('./prikaz-stana/prikaz-stana.module').then( m => m.PrikazStanaPageModule),
-   // canLoad: [AuthGuard]
+   canLoad: [AuthGuard]
   },
   {
     path: 'pretraga-stanova',
-    loadChildren: () => import('./pretraga-stanova/pretraga-stanova.module').then( m => m.PretragaStanovaPageModule)
+    loadChildren: () => import('./pretraga-stanova/pretraga-stanova.module').then( m => m.PretragaStanovaPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'termini',
     loadChildren: () => import('./termini/termini.module').then( m => m.TerminiPageModule),
-    //canLoad: [AuthGuard]
+    canLoad: [AuthGuard]
   },
   {
     path: 'termini-poseta',
     loadChildren: () => import('./termini-poseta/termini-poseta.module').then( m => m.TerminiPosetaPageModule),
-    //canLoad: [AuthGuard]
+    canLoad: [AuthGuard]
   },
   {
     path: 'log-in',
@@ -51,11 +53,13 @@ const routes: Routes = [
   },
   {
     path: 'moji-oglasi',
-    loadChildren: () => import('./moji-oglasi/moji-oglasi.module').then( m => m.MojiOglasiPageModule)
+    loadChildren: () => import('./moji-oglasi/moji-oglasi.module').then( m => m.MojiOglasiPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'izmena-oglasa/:id',
-    loadChildren: () => import('./izmena-oglasa/izmena-oglasa.module').then( m => m.IzmenaOglasaPageModule)
+    loadChildren: () => import('./izmena-oglasa/izmena-oglasa.module').then( m => m.IzmenaOglasaPageModule),
+    canLoad: [AuthGuard]
   },
 
 
